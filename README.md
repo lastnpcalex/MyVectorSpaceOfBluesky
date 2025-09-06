@@ -2,6 +2,30 @@
 
 This is a starter kit for creating ATProto Feed Generators. It's not feature complete, but should give you a good starting ground off of which to build and deploy a feed.
 
+## Vectorspace Extensions
+
+This fork adds automation for building interaction-based lists and feeds. A configurable central account is analyzed and the top interacted users are surfaced both as a Bluesky list and as two discovery feeds.
+
+### Quick Start
+1. Fork this repository.
+2. Edit `config/settings.ts` to point to your own account and adjust analysis parameters.
+3. Add `BSKY_USERNAME` and `BSKY_PASSWORD` secrets to your fork so GitHub Actions can authenticate.
+4. Enable the "Update interaction list" workflow in the Actions tab.
+
+### Configuration
+All modifiable values live in `config/settings.ts`. Change the central account handle/DID, feed names and analysis parameters to personalize the project.
+
+### Customization
+- **Central account** and other options live in `config/settings.ts`.
+- Interaction weights and lookback period can be tuned there as well.
+- The scheduled list refresh is defined in `.github/workflows/update-list.yml`.
+
+### GitHub Actions Setup
+The repository includes a workflow at `.github/workflows/update-list.yml` which refreshes the list on a schedule. Provide Bluesky credentials as repository secrets and enable the workflow in the Actions tab to start automatic updates.
+
+### Feed Algorithm
+Interaction scores are computed with a weighted system: replies (3), reposts and quotes (2) and likes (1). Users are ranked by total score to power both the list and feeds.
+
 ## Overview
 
 Feed Generators are services that provide custom algorithms to users through the AT Protocol.
